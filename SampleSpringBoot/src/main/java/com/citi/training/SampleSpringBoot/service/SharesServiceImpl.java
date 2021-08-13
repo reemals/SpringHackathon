@@ -4,6 +4,8 @@ import com.citi.training.SampleSpringBoot.repo.SharesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Collection;
+import java.util.List;
+
 @Service
 public class SharesServiceImpl implements SharesService {
     @Autowired
@@ -22,5 +24,15 @@ public class SharesServiceImpl implements SharesService {
     }
     @Override
     public void SellShares(String symbol) {
+    }
+
+    @Override
+    public Double getTotlaNetWorth(){
+        Double total = 0.0;
+        List<Shares> shares  = sharesRepository.findAll();
+        for(int i = 0 ; i < shares.size(); i++){
+            total += shares.get(i).getCurrentPrice() * shares.get(i).getVolume();
+        }
+        return total;
     }
 }

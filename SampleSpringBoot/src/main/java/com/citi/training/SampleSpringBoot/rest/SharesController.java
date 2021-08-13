@@ -18,11 +18,9 @@ public class SharesController {
     public Collection<Shares> getShareBySymbol (@PathVariable("symbol") String symbol) {
         return sharesService.getShareBySymbol(symbol);
     }
-//    @RequestMapping(method = RequestMethod.GET, value = "/networth")
-//    public Collection<Shares> getTotalNetWorth () {
-//        double totalNet = 0.0;
-//        Collection<Shares> totalShares = sharesService.getAllShares();
-//        totalShares.toArray();
-//        return sharesService.getShareBySymbol(symbol);
-//    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/networth")
+    public Double getTotlaNetWorth() {
+        return sharesService.getTotlaNetWorth();
+    }
 }
