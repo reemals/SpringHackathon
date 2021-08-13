@@ -3,6 +3,11 @@ import com.citi.training.SampleSpringBoot.entities.Shares;
 import com.citi.training.SampleSpringBoot.repo.SharesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import yahoofinance.Stock;
+import yahoofinance.YahooFinance;
+
+import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.List;
 
@@ -58,5 +63,19 @@ public class SharesServiceImpl implements SharesService {
             total += shares.get(i).getCurrentPrice() * shares.get(i).getVolume();
         }
         return total;
+    }
+
+    @Override
+    public String getCurrentStockInfor(String symbol) throws IOException {
+        Stock stock = YahooFinance.get(symbol);
+
+        BigDecimal price = stock.getQuote().getPrice();
+        BigDecimal change = stock.getQuote().getChangeInPercent();
+        BigDecimal peg = stock.getStats().getPeg();
+        BigDecimal dividend = stock.getDividend().getAnnualYieldPercent();
+
+       // stock.print();
+
+        return "Current Market Information for " + stock.getName() +" Price: " + price + ", Change: " + change + ", Peg: " + peg + ", Dividend: " + dividend ;
     }
 }

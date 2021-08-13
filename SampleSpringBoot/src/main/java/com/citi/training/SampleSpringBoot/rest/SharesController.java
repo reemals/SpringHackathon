@@ -3,6 +3,8 @@ import com.citi.training.SampleSpringBoot.entities.Shares;
 import com.citi.training.SampleSpringBoot.service.SharesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
 import java.util.Collection;
 @RestController
 @RequestMapping("/Shares")
@@ -42,6 +44,11 @@ public class SharesController {
     @RequestMapping(value = "/buy", method = RequestMethod.POST)
     public void buyShare(@RequestBody Shares sh) {
         sharesService.addNewShare(sh);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "API/{symbol}")
+    public String getCurrentStockInfor(@PathVariable("symbol") String symbol) throws IOException {
+        return sharesService.getCurrentStockInfor(symbol);
     }
 
 }

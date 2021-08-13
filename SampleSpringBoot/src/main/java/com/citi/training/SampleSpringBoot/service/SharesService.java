@@ -1,6 +1,8 @@
 package com.citi.training.SampleSpringBoot.service;
 import com.citi.training.SampleSpringBoot.entities.Shares;
 import org.springframework.stereotype.Service;
+
+import java.io.IOException;
 import java.util.Collection;
 @Service
 public interface SharesService {
@@ -11,4 +13,5 @@ public interface SharesService {
     void sellShares(String symbol);
     Double getTotlaProfit();
     Double getBookValue();
+    String getCurrentStockInfor(String symbol) throws IOException;
 }
