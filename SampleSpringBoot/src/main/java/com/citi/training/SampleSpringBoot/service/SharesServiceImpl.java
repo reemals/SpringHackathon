@@ -19,8 +19,8 @@ public class SharesServiceImpl implements SharesService {
         return sharesRepository.findBySymbol(symbol);
     }
     @Override
-    public Collection<Shares> addNewShare(Shares share) {
-        return null;
+    public void addNewShare(Shares share) {
+        sharesRepository.save(share);
     }
     @Override
     public void sellShares(String symbol) {
