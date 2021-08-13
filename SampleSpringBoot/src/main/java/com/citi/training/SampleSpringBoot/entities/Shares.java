@@ -11,12 +11,8 @@ public class Shares implements Serializable {
     @Column(name="Symbol")
     private String symbol;
 
-    @Column(name="Closing Price")
-    private Double closingPrice;
-    @Column(name="Volume")
-    private Double volume;
-    @Column(name="Purchase Price")
-    private Double purchasePrice;
+    @Column(name="Price")
+    private Double Price;
 
     public String getSymbol() {
         return symbol;
@@ -26,28 +22,12 @@ public class Shares implements Serializable {
         this.symbol = symbol;
     }
 
-    public Double getClosingPrice() {
-        return closingPrice;
-    }
-
-    public void setClosingPrice(Double closingPrice) {
-        this.closingPrice = closingPrice;
-    }
-
-    public Double getVolume() {
-        return volume;
-    }
-
-    public void setVolume(Double volume) {
-        this.volume = volume;
-    }
-
     public Double getPurchasePrice() {
-        return purchasePrice;
+        return Price;
     }
 
     public void setPurchasePrice(Double purchasePrice) {
-        this.purchasePrice = purchasePrice;
+        this.Price = purchasePrice;
     }
 }
 
