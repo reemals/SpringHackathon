@@ -23,4 +23,9 @@ public class SharesController {
     public Double getTotlaNetWorth() {
         return sharesService.getTotlaNetWorth();
     }
+    @RequestMapping(method = RequestMethod.DELETE, value = "/{symbol}")
+    public void sellShareBySymbol (@PathVariable("symbol") String symbol) {
+        sharesService.sellShares(symbol);
+    }
+
 }

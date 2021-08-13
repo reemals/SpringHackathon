@@ -8,5 +8,5 @@ public interface SharesService {
     Collection<Shares>  getShareBySymbol (String symbol);
     Double getTotlaNetWorth();
     Collection<Shares>  addNewShare(Shares share);
-    void SellShares(String symbol);
+    void sellShares(String symbol);
 }

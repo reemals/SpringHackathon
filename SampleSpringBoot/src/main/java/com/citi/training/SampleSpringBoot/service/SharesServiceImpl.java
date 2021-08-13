@@ -23,7 +23,11 @@ public class SharesServiceImpl implements SharesService {
         return null;
     }
     @Override
-    public void SellShares(String symbol) {
+    public void sellShares(String symbol) {
+        Object[] toBeSell = sharesRepository.findBySymbol(symbol).toArray();
+        if (toBeSell.length == 1) {
+            sharesRepository.delete((Shares) toBeSell[0]);
+        }
     }
 
     @Override
