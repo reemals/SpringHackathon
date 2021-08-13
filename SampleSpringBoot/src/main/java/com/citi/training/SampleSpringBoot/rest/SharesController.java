@@ -21,12 +21,17 @@ public class SharesController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/networth")
     public String getTotlaNetWorth() {
-        return "The total current Netwoth:" + sharesService.getTotlaNetWorth();
+        return "The total current Netwoth: " + String.format("%,.2f", sharesService.getTotlaNetWorth());
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/profit")
     public String getTotlaProfit() {
-        return "Total Profit:" + sharesService.getTotlaProfit();
+        return "Total Profit: " + String.format("%,.2f", sharesService.getTotlaProfit());
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/bookValue")
+    public String getBookValue() {
+        return "Total Book Value: " + String.format("%,.2f", sharesService.getBookValue());
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "sell/{symbol}")

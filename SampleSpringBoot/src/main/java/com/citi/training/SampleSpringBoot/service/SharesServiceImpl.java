@@ -31,6 +31,16 @@ public class SharesServiceImpl implements SharesService {
     }
 
     @Override
+    public Double getBookValue() {
+        Double total = 0.0;
+        List<Shares> shares  = sharesRepository.findAll();
+        for(int i = 0 ; i < shares.size(); i++){
+            total += shares.get(i).getPurchasedPrice() * shares.get(i).getVolume();
+        }
+        return total;
+    }
+
+    @Override
     public Double getTotlaProfit() {
         Double total = 0.0;
         List<Shares> shares  = sharesRepository.findAll();
