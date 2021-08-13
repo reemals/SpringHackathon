@@ -7,6 +7,11 @@ import java.io.Serializable;
 @Table(name="shares")
 public class Shares implements Serializable {
 
+//    public Shares(String symbol, Double pprice, int volume) {
+//        this.symbol = symbol;
+//        this.purchasedPrice = pprice;
+//        this.volume = volume;
+//    }
     @Id
     @Column(name="Symbol")
     private String symbol;

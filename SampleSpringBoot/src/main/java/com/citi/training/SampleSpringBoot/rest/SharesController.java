@@ -20,9 +20,15 @@ public class SharesController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/networth")
-    public Double getTotlaNetWorth() {
-        return sharesService.getTotlaNetWorth();
+    public String getTotlaNetWorth() {
+        return "The total current Netwoth:" + sharesService.getTotlaNetWorth();
     }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/profit")
+    public String getTotlaProfit() {
+        return "Total Profit:" + sharesService.getTotlaProfit();
+    }
+
     @RequestMapping(method = RequestMethod.DELETE, value = "sell/{symbol}")
     public void sellShareBySymbol (@PathVariable("symbol") String symbol) {
         sharesService.sellShares(symbol);
@@ -30,7 +36,7 @@ public class SharesController {
 
     @RequestMapping(value = "/buy", method = RequestMethod.POST)
     public void buyShare(@RequestBody Shares sh) {
-            sharesService.addNewShare(sh);
+        sharesService.addNewShare(sh);
     }
 
 }
