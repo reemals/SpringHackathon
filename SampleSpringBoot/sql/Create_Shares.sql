@@ -1,3 +1,6 @@
+use conygre;
+drop table if exists shares;
+
 CREATE TABLE `conygre`.`shares` (
                                     `Symbol` VARCHAR(45) NOT NULL,
                                     `Volume` INT NULL,
