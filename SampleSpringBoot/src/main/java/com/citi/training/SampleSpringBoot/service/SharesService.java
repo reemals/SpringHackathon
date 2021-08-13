@@ -9,4 +9,5 @@ public interface SharesService {
     Double getTotlaNetWorth();
     Collection<Shares>  addNewShare(Shares share);
     void sellShares(String symbol);
+    Double getTotlaProfit();
 }
