@@ -39,5 +39,9 @@ public class SharesController {
         sharesService.sellShares(symbol);
     }
 
+    @RequestMapping(value = "/buy", method = RequestMethod.POST)
+    public void buyShare(@RequestBody Shares sh) {
+        sharesService.addNewShare(sh);
+    }
 
 }

@@ -7,7 +7,7 @@ public interface SharesService {
     Collection<Shares> getAllShares();
     Collection<Shares>  getShareBySymbol (String symbol);
     Double getTotlaNetWorth();
-    Collection<Shares>  addNewShare(Shares share);
+    void  addNewShare(Shares share);
     void sellShares(String symbol);
     Double getTotlaProfit();
     Double getBookValue();
