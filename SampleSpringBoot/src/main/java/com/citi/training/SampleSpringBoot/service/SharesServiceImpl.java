@@ -44,16 +44,44 @@ public class SharesServiceImpl implements SharesService {
     }
     @Override
     public void addNewShare(Shares share) throws IOException {
+        share.setTransaction_type("buy");
         share.setTransaction_date();
         share.setTransaction_price();
         sharesRepository.save(share);
     }
     @Override
-    public void sellShares(String symbol) {
-        Object[] toBeSell = sharesRepository.findBySymbol(symbol).toArray();
-        if (toBeSell.length == 1) {
-            sharesRepository.delete((Shares) toBeSell[0]);
+    public void sellShares(Shares share) throws IOException {
+        share.setTransaction_type("sell");
+        share.setTransaction_date();
+        share.setTransaction_price();
+        sharesRepository.save(share);
+    }
+
+    public Double getTotalShares(String symbol){
+        Double total = 0.0;
+        List<Shares> shares  = sharesRepository.findAll();
+        for(int i = 0 ; i < shares.size(); i++){
+            if(shares.get(i).getSymbol().equals(symbol) && shares.get(i).getTransaction_type().equals("buy")){
+                total += shares.get(i).getVolume();
+            }
+            else if (shares.get(i).getSymbol().equals(symbol)){
+                total -= shares.get(i).getVolume();
+            }
         }
+        return total;
+    }
+
+    @Override
+    public ArrayList<String> getMySharesName(){
+        List<String> shares = new ArrayList<>();
+        List<Shares> Reposhares  = sharesRepository.findAll();
+        for(int i =0; i < Reposhares.size(); i++){
+            if(getTotalShares(Reposhares.get(i).getSymbol()) >0 && !shares.contains(Reposhares.get(i).getSymbol())){
+                shares.add(Reposhares.get(i).getSymbol());
+            }
+        }
+        return (ArrayList<String>) shares;
+
     }
 //
 //    @Override
@@ -76,16 +104,18 @@ public class SharesServiceImpl implements SharesService {
 //        return total;
 //    }
 //
-//    @Override
-//    public Double getTotlaNetWorth(){
-//        Double total = 0.0;
-//        List<Shares> shares  = sharesRepository.findAll();
-//        for(int i = 0 ; i < shares.size(); i++){
-//            total += shares.get(i).getCurrentPrice() * shares.get(i).getVolume();
-//        }
-//        return total;
-//    }
-//
+    @Override
+    public Double getTotalNetWorth() throws IOException {
+        Double total = 0.0;
+        ArrayList<String> shares =  getMySharesName();
+
+        for(int i = 0 ; i < shares.size(); i++){
+            Stock stock = YahooFinance.get(shares.get(i));
+            total += getTotalShares(shares.get(i)) * stock.getQuote().getPrice().doubleValue();
+        }
+        return total;
+    }
+
     @Override
     public String getCurrentStockInfor(String symbol) throws IOException {
         Stock stock = YahooFinance.get(symbol);

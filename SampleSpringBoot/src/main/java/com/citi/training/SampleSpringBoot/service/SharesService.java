@@ -3,16 +3,19 @@ import com.citi.training.SampleSpringBoot.entities.Shares;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 @Service
 public interface SharesService {
     Collection<Shares> getAllShares();
     Collection<Shares>  getShareBySymbol (String symbol);
     Collection<Shares> getMyShares();
-//    Double getTotlaNetWorth();
+    Double getTotalNetWorth() throws IOException;
     void  addNewShare(Shares share) throws IOException;
-    void sellShares(String symbol);
+    void sellShares(Shares sh) throws IOException;
 //    Double getTotlaProfit();
 //    Double getBookValue();
+    Double getTotalShares(String symbol);
     String getCurrentStockInfor(String symbol) throws IOException;
+    ArrayList<String> getMySharesName();
 }

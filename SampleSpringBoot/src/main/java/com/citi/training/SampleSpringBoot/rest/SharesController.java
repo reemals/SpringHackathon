@@ -26,10 +26,10 @@ public class SharesController {
         return sharesService.getMyShares();
     }
 
-//    @RequestMapping(method = RequestMethod.GET, value = "/networth")
-//    public String getTotlaNetWorth() {
-//        return "The total current Netwoth: " + String.format("%,.2f", sharesService.getTotlaNetWorth());
-//    }
+    @RequestMapping(method = RequestMethod.GET, value = "/networth")
+    public String getTotlaNetWorth() throws IOException {
+        return "The total current Netwoth: " + String.format("%,.2f", sharesService.getTotalNetWorth());
+    }
 //
 //    @RequestMapping(method = RequestMethod.GET, value = "/profit")
 //    public String getTotlaProfit() {
@@ -41,9 +41,9 @@ public class SharesController {
 //        return "Total Book Value: " + String.format("%,.2f", sharesService.getBookValue());
 //    }
 //
-    @RequestMapping(method = RequestMethod.DELETE, value = "sell/{symbol}")
-    public void sellShareBySymbol (@PathVariable("symbol") String symbol) {
-        sharesService.sellShares(symbol);
+    @RequestMapping(method = RequestMethod.POST, value = "sell")
+    public void sellShareBySymbol (@RequestBody Shares sh) throws IOException {
+        sharesService.sellShares(sh);
     }
 
     @RequestMapping(value = "/buy", method = RequestMethod.POST)
@@ -56,4 +56,13 @@ public class SharesController {
         return sharesService.getCurrentStockInfor(symbol);
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "/Total{symbol}")
+    public String getTotalShares(@PathVariable("symbol") String symbol) throws IOException {
+        return "Total " + symbol + " shares I own: " + sharesService.getTotalShares(symbol);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/SharesOwned")
+    public String getMySharesName()  {
+        return "shares owned " + sharesService.getMySharesName().toString();
+    }
 }
