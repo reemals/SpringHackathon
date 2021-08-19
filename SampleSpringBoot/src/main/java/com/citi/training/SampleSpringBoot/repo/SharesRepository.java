@@ -7,5 +7,6 @@ import java.util.Collection;
 
 public interface SharesRepository extends JpaRepository<Shares, String > {
     Collection<Shares> findBySymbol(String name);
+    Collection<Shares> findById(int id);
 
 }

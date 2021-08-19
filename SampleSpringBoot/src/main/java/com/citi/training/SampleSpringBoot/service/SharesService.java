@@ -13,8 +13,8 @@ public interface SharesService {
     Double getTotalNetWorth() throws IOException;
     void  addNewShare(Shares share) throws IOException;
     void sellShares(Shares sh) throws IOException;
-//    Double getTotlaProfit();
-//    Double getBookValue();
+    Double getTotalProfit(int id) throws IOException;
+    Double getBookValue(int id) throws IOException;
     Double getTotalShares(String symbol);
     String getCurrentStockInfor(String symbol) throws IOException;
     ArrayList<String> getMySharesName();

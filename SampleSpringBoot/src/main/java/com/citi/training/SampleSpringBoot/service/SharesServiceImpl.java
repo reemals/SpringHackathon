@@ -83,27 +83,23 @@ public class SharesServiceImpl implements SharesService {
         return (ArrayList<String>) shares;
 
     }
-//
-//    @Override
-//    public Double getBookValue() {
-//        Double total = 0.0;
-//        List<Shares> shares  = sharesRepository.findAll();
-//        for(int i = 0 ; i < shares.size(); i++){
-//            total += shares.get(i).getPurchasedPrice() * shares.get(i).getVolume();
-//        }
-//        return total;
-//    }
-//
-//    @Override
-//    public Double getTotlaProfit() {
-//        Double total = 0.0;
-//        List<Shares> shares  = sharesRepository.findAll();
-//        for(int i = 0 ; i < shares.size(); i++){
-//            total += shares.get(i).getCurrentPrice() * shares.get(i).getVolume() - shares.get(i).getPurchasedPrice() * shares.get(i).getVolume();
-//        }
-//        return total;
-//    }
-//
+
+    @Override
+    public Double getBookValue(int id) throws IOException {
+        List<Shares> shares  = (List<Shares>) sharesRepository.findById(id);
+        Stock stock = YahooFinance.get(shares.get(0).getSymbol());
+        Double total = shares.get(0).getTransaction_price() * shares.get(0).getVolume();
+        return total;
+    }
+
+    @Override
+    public Double getTotalProfit(int id) throws IOException {
+        List<Shares> shares  = (List<Shares>) sharesRepository.findById(id);
+        Stock stock = YahooFinance.get(shares.get(0).getSymbol());
+        Double total = ( stock.getQuote().getPrice().doubleValue()- shares.get(0).getTransaction_price() ) * shares.get(0).getVolume();
+        return total;
+    }
+
     @Override
     public Double getTotalNetWorth() throws IOException {
         Double total = 0.0;
