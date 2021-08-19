@@ -24,24 +24,24 @@ public class SharesServiceImpl implements SharesService {
     public Collection<Shares> getShareBySymbol (String symbol) {
         return sharesRepository.findBySymbol(symbol);
     }
-    @Override
-    public Collection<Shares> getMyShares(){
-        List<Shares> transactions  = sharesRepository.findAll();
-        Collection<Shares> output = new ArrayList<Shares>();
-        for(int i = 0; i < transactions.size(); i++){
-            List<Shares> a = (List<Shares>) getShareBySymbol(transactions.get(i).getSymbol());
-            if(a.size() == 1){output.add(transactions.get(i));}
-            else{
-                int volume = 0;
-                for(int j = 0; j < a.size(); j++){
-                   if(a.get(j).getTransaction_type().equals("buy")) {volume += a.get(j).getVolume();}
-                   else{volume -= a.get(j).getVolume();}
-                }
-                //output.add(new Shares(a.get(i).getSymbol(),volume));
-            }
-        }
-        return output;
-    }
+//    @Override
+//    public Collection<Shares> getMyShares(){
+//        List<Shares> transactions  = sharesRepository.findAll();
+//        Collection<Shares> output = new ArrayList<Shares>();
+//        for(int i = 0; i < transactions.size(); i++){
+//            List<Shares> a = (List<Shares>) getShareBySymbol(transactions.get(i).getSymbol());
+//            if(a.size() == 1){output.add(transactions.get(i));}
+//            else{
+//                int volume = 0;
+//                for(int j = 0; j < a.size(); j++){
+//                   if(a.get(j).getTransaction_type().equals("buy")) {volume += a.get(j).getVolume();}
+//                   else{volume -= a.get(j).getVolume();}
+//                }
+//                //output.add(new Shares(a.get(i).getSymbol(),volume));
+//            }
+//        }
+//        return output;
+//    }
     @Override
     public void addNewShare(Shares share) throws IOException {
         share.setTransaction_type("buy");

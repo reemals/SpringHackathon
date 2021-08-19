@@ -9,7 +9,7 @@ import java.util.Collection;
 public interface SharesService {
     Collection<Shares> getAllShares();
     Collection<Shares>  getShareBySymbol (String symbol);
-    Collection<Shares> getMyShares();
+    //Collection<Shares> getMyShares();
     Double getTotalNetWorth() throws IOException;
     void  addNewShare(Shares share) throws IOException;
     void sellShares(Shares sh) throws IOException;
