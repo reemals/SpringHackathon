@@ -21,10 +21,10 @@ public class SharesController {
         return sharesService.getShareBySymbol(symbol);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/myShares")
-    public Collection<Shares> getMyShares () {
-        return sharesService.getMyShares();
-    }
+//    @RequestMapping(method = RequestMethod.GET, value = "/myShares")
+//    public Collection<Shares> getMyShares () {
+//        return sharesService.getMyShares();
+//    }
 
     @RequestMapping(method = RequestMethod.GET, value = "/networth")
     public String getTotalNetWorth() throws IOException {
@@ -56,12 +56,12 @@ public class SharesController {
         return sharesService.getCurrentStockInfor(symbol);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/Total{symbol}")
+    @RequestMapping(method = RequestMethod.GET, value = "/total{symbol}")
     public String getTotalShares(@PathVariable("symbol") String symbol) throws IOException {
         return "Total " + symbol + " shares I own: " + sharesService.getTotalShares(symbol);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/SharesOwned")
+    @RequestMapping(method = RequestMethod.GET, value = "/sharesOwned")
     public String getMySharesName()  {
         return "Shares owned " + sharesService.getMySharesName().toString();
     }
