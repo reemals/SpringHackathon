@@ -21,28 +21,34 @@ public class SharesController {
         return sharesService.getShareBySymbol(symbol);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/networth")
-    public String getTotlaNetWorth() {
-        return "The total current Netwoth: " + String.format("%,.2f", sharesService.getTotlaNetWorth());
+    @RequestMapping(method = RequestMethod.GET, value = "/myShares")
+    public Collection<Shares> getMyShares () {
+        return sharesService.getMyShares();
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/profit")
-    public String getTotlaProfit() {
-        return "Total Profit: " + String.format("%,.2f", sharesService.getTotlaProfit());
-    }
-
-    @RequestMapping(method = RequestMethod.GET, value = "/bookValue")
-    public String getBookValue() {
-        return "Total Book Value: " + String.format("%,.2f", sharesService.getBookValue());
-    }
-
+//    @RequestMapping(method = RequestMethod.GET, value = "/networth")
+//    public String getTotlaNetWorth() {
+//        return "The total current Netwoth: " + String.format("%,.2f", sharesService.getTotlaNetWorth());
+//    }
+//
+//    @RequestMapping(method = RequestMethod.GET, value = "/profit")
+//    public String getTotlaProfit() {
+//        return "Total Profit: " + String.format("%,.2f", sharesService.getTotlaProfit());
+//    }
+//
+//    @RequestMapping(method = RequestMethod.GET, value = "/bookValue")
+//    public String getBookValue() {
+//        return "Total Book Value: " + String.format("%,.2f", sharesService.getBookValue());
+//    }
+//
     @RequestMapping(method = RequestMethod.DELETE, value = "sell/{symbol}")
     public void sellShareBySymbol (@PathVariable("symbol") String symbol) {
         sharesService.sellShares(symbol);
     }
-
+//
     @RequestMapping(value = "/buy", method = RequestMethod.POST)
     public void buyShare(@RequestBody Shares sh) {
+        //return sh.getId()+sh.getTransaction_price()+sh.getSymbol()+sh.getVolume()+sh.getTransaction_date()+sh.getTransaction_type();
         sharesService.addNewShare(sh);
     }
 

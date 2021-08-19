@@ -8,6 +8,7 @@ import yahoofinance.YahooFinance;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -24,6 +25,24 @@ public class SharesServiceImpl implements SharesService {
         return sharesRepository.findBySymbol(symbol);
     }
     @Override
+    public Collection<Shares> getMyShares(){
+        List<Shares> transactions  = sharesRepository.findAll();
+        Collection<Shares> output = new ArrayList<Shares>();
+        for(int i = 0; i < transactions.size(); i++){
+            List<Shares> a = (List<Shares>) getShareBySymbol(transactions.get(i).getSymbol());
+            if(a.size() == 1){output.add(transactions.get(i));}
+            else{
+                int volume = 0;
+                for(int j = 0; j < a.size(); j++){
+                   if(a.get(j).getTransaction_type().equals("buy")) {volume += a.get(j).getVolume();}
+                   else{volume -= a.get(j).getVolume();}
+                }
+                //output.add(new Shares(a.get(i).getSymbol(),volume));
+            }
+        }
+        return output;
+    }
+    @Override
     public void addNewShare(Shares share) {
         sharesRepository.save(share);
     }
@@ -34,37 +53,37 @@ public class SharesServiceImpl implements SharesService {
             sharesRepository.delete((Shares) toBeSell[0]);
         }
     }
-
-    @Override
-    public Double getBookValue() {
-        Double total = 0.0;
-        List<Shares> shares  = sharesRepository.findAll();
-        for(int i = 0 ; i < shares.size(); i++){
-            total += shares.get(i).getPurchasedPrice() * shares.get(i).getVolume();
-        }
-        return total;
-    }
-
-    @Override
-    public Double getTotlaProfit() {
-        Double total = 0.0;
-        List<Shares> shares  = sharesRepository.findAll();
-        for(int i = 0 ; i < shares.size(); i++){
-            total += shares.get(i).getCurrentPrice() * shares.get(i).getVolume() - shares.get(i).getPurchasedPrice() * shares.get(i).getVolume();
-        }
-        return total;
-    }
-
-    @Override
-    public Double getTotlaNetWorth(){
-        Double total = 0.0;
-        List<Shares> shares  = sharesRepository.findAll();
-        for(int i = 0 ; i < shares.size(); i++){
-            total += shares.get(i).getCurrentPrice() * shares.get(i).getVolume();
-        }
-        return total;
-    }
-
+//
+//    @Override
+//    public Double getBookValue() {
+//        Double total = 0.0;
+//        List<Shares> shares  = sharesRepository.findAll();
+//        for(int i = 0 ; i < shares.size(); i++){
+//            total += shares.get(i).getPurchasedPrice() * shares.get(i).getVolume();
+//        }
+//        return total;
+//    }
+//
+//    @Override
+//    public Double getTotlaProfit() {
+//        Double total = 0.0;
+//        List<Shares> shares  = sharesRepository.findAll();
+//        for(int i = 0 ; i < shares.size(); i++){
+//            total += shares.get(i).getCurrentPrice() * shares.get(i).getVolume() - shares.get(i).getPurchasedPrice() * shares.get(i).getVolume();
+//        }
+//        return total;
+//    }
+//
+//    @Override
+//    public Double getTotlaNetWorth(){
+//        Double total = 0.0;
+//        List<Shares> shares  = sharesRepository.findAll();
+//        for(int i = 0 ; i < shares.size(); i++){
+//            total += shares.get(i).getCurrentPrice() * shares.get(i).getVolume();
+//        }
+//        return total;
+//    }
+//
     @Override
     public String getCurrentStockInfor(String symbol) throws IOException {
         Stock stock = YahooFinance.get(symbol);
