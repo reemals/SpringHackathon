@@ -45,10 +45,9 @@ public class SharesController {
     public void sellShareBySymbol (@PathVariable("symbol") String symbol) {
         sharesService.sellShares(symbol);
     }
-//
+
     @RequestMapping(value = "/buy", method = RequestMethod.POST)
-    public void buyShare(@RequestBody Shares sh) {
-        //return sh.getId()+sh.getTransaction_price()+sh.getSymbol()+sh.getVolume()+sh.getTransaction_date()+sh.getTransaction_type();
+    public void buyShare(@RequestBody Shares sh) throws IOException {
         sharesService.addNewShare(sh);
     }
 

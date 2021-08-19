@@ -43,7 +43,9 @@ public class SharesServiceImpl implements SharesService {
         return output;
     }
     @Override
-    public void addNewShare(Shares share) {
+    public void addNewShare(Shares share) throws IOException {
+        share.setTransaction_date();
+        share.setTransaction_price();
         sharesRepository.save(share);
     }
     @Override

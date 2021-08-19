@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -33,7 +34,7 @@ public class Shares implements Serializable {
     private String transaction_type;
 
     @Column(name="transaction_date")
-    private Date transaction_date;
+    private LocalDate transaction_date;
 
     public String getSymbol() {
         return symbol;
@@ -47,9 +48,9 @@ public class Shares implements Serializable {
         return transaction_price;
     }
 
-    public void setTransaction_price(Double price) {
-//        Stock stock = YahooFinance.get(symbol);
-        this.transaction_price = price;
+    public void setTransaction_price() throws IOException {
+        Stock stock = YahooFinance.get(symbol);
+        this.transaction_price = stock.getQuote().getPrice().doubleValue();
     }
 
     public int getId() {
@@ -68,12 +69,12 @@ public class Shares implements Serializable {
         this.transaction_type = transaction_type;
     }
 
-    public Date getTransaction_date() {
+    public LocalDate getTransaction_date() {
         return transaction_date;
     }
 
-    public void setTransaction_date(Date transaction_date) {
-        this.transaction_date = transaction_date;
+    public void setTransaction_date() {
+        this.transaction_date = LocalDate.now();
     }
 
     public int getVolume() {

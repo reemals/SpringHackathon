@@ -10,7 +10,7 @@ public interface SharesService {
     Collection<Shares>  getShareBySymbol (String symbol);
     Collection<Shares> getMyShares();
 //    Double getTotlaNetWorth();
-    void  addNewShare(Shares share);
+    void  addNewShare(Shares share) throws IOException;
     void sellShares(String symbol);
 //    Double getTotlaProfit();
 //    Double getBookValue();
