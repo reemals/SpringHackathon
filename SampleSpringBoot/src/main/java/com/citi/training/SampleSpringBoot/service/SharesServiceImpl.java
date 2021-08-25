@@ -1,6 +1,7 @@
 package com.citi.training.SampleSpringBoot.service;
 import com.citi.training.SampleSpringBoot.entities.Shares;
 import com.citi.training.SampleSpringBoot.repo.SharesRepository;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,15 +9,17 @@ import org.springframework.stereotype.Service;
 import yahoofinance.Stock;
 import yahoofinance.YahooFinance;
 
-import java.io.IOException;
+import java.io.*;
 import java.math.BigDecimal;
 import java.net.URI;
+import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
 
 @Service
 public class SharesServiceImpl implements SharesService {
@@ -121,19 +124,33 @@ public class SharesServiceImpl implements SharesService {
     }
 
     @Override
-    public String getMarketMovers() throws IOException, InterruptedException {
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/v2/get-movers?region=US&lang=en-US&count=6&start=0"))
-                .header("x-rapidapi-host", "apidojo-yahoo-finance-v1.p.rapidapi.com")
-                .header("x-rapidapi-key", "a252909fb0msh5b82dd41126eef3p14c9f1jsn0c4105f5d916")
-                .method("GET", HttpRequest.BodyPublishers.noBody())
-                .build();
-        HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-       return response.body();
+    public String getMarketGainers() throws IOException, InterruptedException, JSONException {
+        String output ="";
+        URL url = new URL("https://financialmodelingprep.com/api/v3/stock/gainers?apikey=d9b53b70b77c85604f56ebd6be5d7909");
+
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"))) {
+            for (String line; (line = reader.readLine()) != null;) {
+                output += line +"\n";
+            }
+        }
+        return output;
     }
 
     @Override
-    public String getMarketSummary() throws IOException, InterruptedException {
+    public String getMarketLosers() throws IOException, InterruptedException, JSONException {
+        String output ="";
+        URL url = new URL("https://financialmodelingprep.com/api/v3/stock/losers?apikey=d9b53b70b77c85604f56ebd6be5d7909");
+
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"))) {
+            for (String line; (line = reader.readLine()) != null;) {
+                output += line +"\n";
+            }
+        }
+        return output;
+    }
+
+        @Override
+    public String getMarketSummary() throws IOException, InterruptedException, JSONException {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/v2/get-summary?region=US"))
                 .header("x-rapidapi-host", "apidojo-yahoo-finance-v1.p.rapidapi.com")

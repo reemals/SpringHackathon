@@ -1,7 +1,6 @@
 package com.citi.training.SampleSpringBoot.rest;
 import com.citi.training.SampleSpringBoot.entities.Shares;
 import com.citi.training.SampleSpringBoot.service.SharesService;
-import org.apache.catalina.connector.Response;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,9 +84,14 @@ public class SharesController {
         return outputJsonObj.toString();
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/marketMovers")
-    public String getMarketMovers() throws JSONException, IOException, InterruptedException {
-        return sharesService.getMarketMovers();
+    @RequestMapping(method = RequestMethod.GET, value = "/marketGainers")
+    public String getMarketGainers() throws JSONException, IOException, InterruptedException {
+        return sharesService.getMarketGainers();
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/marketLosers")
+    public String getMarketLosers() throws JSONException, IOException, InterruptedException {
+        return sharesService.getMarketLosers();
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/marketSummary")
