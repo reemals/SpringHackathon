@@ -1,14 +1,16 @@
 package com.citi.training.SampleSpringBoot.rest;
 import com.citi.training.SampleSpringBoot.entities.Shares;
 import com.citi.training.SampleSpringBoot.service.SharesService;
+import org.apache.catalina.connector.Response;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.Collection;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/")
@@ -51,8 +53,15 @@ public class SharesController {
         return outputJsonObj.toString();
     }
     @RequestMapping(method = RequestMethod.POST, value = "sell")
-    public void sellShareBySymbol (@RequestBody Shares sh) throws IOException {
-        sharesService.sellShares(sh);
+    public ResponseEntity sellShareBySymbol (@RequestBody Shares sh) throws IOException {
+        if(sharesService.getTotalShares(sh.getSymbol())-sh.getVolume() >= 0){
+            sharesService.sellShares(sh);
+            return new ResponseEntity<>(HttpStatus.ACCEPTED );
+        }
+        else{
+            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+        }
+
     }
     @RequestMapping( method = RequestMethod.POST, value = "/buy")
     public void buyShare(@RequestBody Shares sh) throws IOException {
