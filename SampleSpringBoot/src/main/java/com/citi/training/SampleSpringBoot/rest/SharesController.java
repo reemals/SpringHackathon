@@ -1,11 +1,15 @@
 package com.citi.training.SampleSpringBoot.rest;
 import com.citi.training.SampleSpringBoot.entities.Shares;
 import com.citi.training.SampleSpringBoot.service.SharesService;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/")
 public class SharesController {
@@ -29,18 +33,24 @@ public class SharesController {
 //    }
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(method = RequestMethod.GET, value = "/networth")
-    public String getTotalNetWorth() throws IOException {
-        return "{ value: '"+String.format("%,.2f", sharesService.getTotalNetWorth())+"'}";
+    public String getTotalNetWorth() throws IOException, JSONException {
+        JSONObject outputJsonObj = new JSONObject();
+        outputJsonObj.put("output", String.format("%,.2f", sharesService.getTotalNetWorth()));
+        return outputJsonObj.toString();
     }
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(method = RequestMethod.GET, value = "profit{id}")
-    public String getTotalProfit(@PathVariable("id") int id) throws IOException {
-        return "{ value: '" + String.format("%,.2f", sharesService.getTotalProfit(id))+"'}";
+    public String getTotalProfit(@PathVariable("id") int id) throws IOException, JSONException {
+        JSONObject outputJsonObj = new JSONObject();
+        outputJsonObj.put("output", String.format("%,.2f", sharesService.getTotalProfit(id)));
+        return outputJsonObj.toString();
     }
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(method = RequestMethod.GET, value = "/bookValue{id}")
-    public String getBookValue(@PathVariable("id") int id) throws IOException {
-        return "{ value: '" + String.format("%,.2f", sharesService.getBookValue( id))+"'}";
+    public String getBookValue(@PathVariable("id") int id) throws IOException, JSONException {
+        JSONObject outputJsonObj = new JSONObject();
+        outputJsonObj.put("output", String.format("%,.2f", sharesService.getBookValue( id)));
+        return outputJsonObj.toString();
     }
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(method = RequestMethod.POST, value = "sell")
