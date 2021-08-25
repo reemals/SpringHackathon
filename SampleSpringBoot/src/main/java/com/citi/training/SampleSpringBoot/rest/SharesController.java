@@ -30,17 +30,17 @@ public class SharesController {
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(method = RequestMethod.GET, value = "/networth")
     public String getTotalNetWorth() throws IOException {
-        return "The total current Networth: " + String.format("%,.2f", sharesService.getTotalNetWorth()) + "$";
+        return "{ value: '"+String.format("%,.2f", sharesService.getTotalNetWorth())+"'}";
     }
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(method = RequestMethod.GET, value = "profit{id}")
     public String getTotalProfit(@PathVariable("id") int id) throws IOException {
-        return "Total Profit: " + String.format("%,.2f", sharesService.getTotalProfit(id));
+        return "{ value: '" + String.format("%,.2f", sharesService.getTotalProfit(id))+"'}";
     }
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(method = RequestMethod.GET, value = "/bookValue{id}")
     public String getBookValue(@PathVariable("id") int id) throws IOException {
-        return "Total Book Value: " + String.format("%,.2f", sharesService.getBookValue( id));
+        return "{ value: '" + String.format("%,.2f", sharesService.getBookValue( id))+"'}";
     }
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(method = RequestMethod.POST, value = "sell")
