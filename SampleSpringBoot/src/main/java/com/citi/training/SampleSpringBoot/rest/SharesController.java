@@ -11,6 +11,7 @@ import java.util.Collection;
 public class SharesController {
     @Autowired
     private SharesService sharesService;
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping
     public Collection<Shares> getShares() {
         System.out.println(sharesService.getAllShares().toArray());
