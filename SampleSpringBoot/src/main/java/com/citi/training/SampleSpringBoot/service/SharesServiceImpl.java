@@ -10,6 +10,10 @@ import yahoofinance.YahooFinance;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -26,24 +30,7 @@ public class SharesServiceImpl implements SharesService {
     public Collection<Shares> getShareBySymbol (String symbol) {
         return sharesRepository.findBySymbol(symbol);
     }
-//    @Override
-//    public Collection<Shares> getMyShares(){
-//        List<Shares> transactions  = sharesRepository.findAll();
-//        Collection<Shares> output = new ArrayList<Shares>();
-//        for(int i = 0; i < transactions.size(); i++){
-//            List<Shares> a = (List<Shares>) getShareBySymbol(transactions.get(i).getSymbol());
-//            if(a.size() == 1){output.add(transactions.get(i));}
-//            else{
-//                int volume = 0;
-//                for(int j = 0; j < a.size(); j++){
-//                   if(a.get(j).getTransaction_type().equals("buy")) {volume += a.get(j).getVolume();}
-//                   else{volume -= a.get(j).getVolume();}
-//                }
-//                //output.add(new Shares(a.get(i).getSymbol(),volume));
-//            }
-//        }
-//        return output;
-//    }
+
     @Override
     public void addNewShare(Shares share) throws IOException {
         share.setTransaction_type("buy");
@@ -131,5 +118,29 @@ public class SharesServiceImpl implements SharesService {
         outputJsonObj.put("peg", peg);
         outputJsonObj.put("dividend", dividend);
         return outputJsonObj.toString();
+    }
+
+    @Override
+    public String getMarketMovers() throws IOException, InterruptedException {
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/v2/get-movers?region=US&lang=en-US&count=6&start=0"))
+                .header("x-rapidapi-host", "apidojo-yahoo-finance-v1.p.rapidapi.com")
+                .header("x-rapidapi-key", "a252909fb0msh5b82dd41126eef3p14c9f1jsn0c4105f5d916")
+                .method("GET", HttpRequest.BodyPublishers.noBody())
+                .build();
+        HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+       return response.body();
+    }
+
+    @Override
+    public String getMarketSummary() throws IOException, InterruptedException {
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/v2/get-summary?region=US"))
+                .header("x-rapidapi-host", "apidojo-yahoo-finance-v1.p.rapidapi.com")
+                .header("x-rapidapi-key", "a252909fb0msh5b82dd41126eef3p14c9f1jsn0c4105f5d916")
+                .method("GET", HttpRequest.BodyPublishers.noBody())
+                .build();
+        HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+        return response.body();
     }
 }

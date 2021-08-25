@@ -19,4 +19,7 @@ public interface SharesService {
     Double getTotalShares(String symbol);
     String getCurrentStockInfor(String symbol) throws IOException, JSONException;
     ArrayList<String> getMySharesName();
+    String getMarketMovers() throws IOException, InterruptedException;
+    String getMarketSummary() throws IOException, InterruptedException;
+
 }

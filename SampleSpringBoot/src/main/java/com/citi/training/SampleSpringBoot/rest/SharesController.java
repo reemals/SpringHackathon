@@ -12,16 +12,16 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/")
+@CrossOrigin(origins = "http://localhost:4200")
+
 public class SharesController {
     @Autowired
     private SharesService sharesService;
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping
     public Collection<Shares> getShares() {
         System.out.println(sharesService.getAllShares().toArray());
         return sharesService.getAllShares();
     }
-    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(method = RequestMethod.GET, value = "/{symbol}")
     public Collection<Shares> getShareBySymbol (@PathVariable("symbol") String symbol) {
         return sharesService.getShareBySymbol(symbol);
@@ -31,7 +31,6 @@ public class SharesController {
 //    public Collection<Shares> getMyShares () {
 //        return sharesService.getMyShares();
 //    }
-    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(method = RequestMethod.GET, value = "/networth")
     public String getTotalNetWorth() throws IOException, JSONException {
         JSONObject outputJsonObj = new JSONObject();
@@ -45,40 +44,45 @@ public class SharesController {
         outputJsonObj.put("output", String.format("%,.2f", sharesService.getTotalProfit(id)));
         return outputJsonObj.toString();
     }
-    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(method = RequestMethod.GET, value = "/bookValue/{id}")
     public String getBookValue(@PathVariable("id") int id) throws IOException, JSONException {
         JSONObject outputJsonObj = new JSONObject();
         outputJsonObj.put("output", String.format("%,.2f", sharesService.getBookValue( id)));
         return outputJsonObj.toString();
     }
-    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(method = RequestMethod.POST, value = "sell")
     public void sellShareBySymbol (@RequestBody Shares sh) throws IOException {
         sharesService.sellShares(sh);
     }
-    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping( method = RequestMethod.POST, value = "/buy")
     public void buyShare(@RequestBody Shares sh) throws IOException {
         sharesService.addNewShare(sh);
     }
-    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(method = RequestMethod.GET, value = "API/{symbol}")
     public String getCurrentStockInfor(@PathVariable("symbol") String symbol) throws IOException, JSONException {
         return sharesService.getCurrentStockInfor(symbol);
     }
-    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(method = RequestMethod.GET, value = "/total/{symbol}")
     public String getTotalShares(@PathVariable("symbol") String symbol) throws IOException, JSONException {
         JSONObject outputJsonObj = new JSONObject();
         outputJsonObj.put("output", sharesService.getTotalShares(symbol));
         return outputJsonObj.toString();
     }
-    @CrossOrigin(origins = "http://localhost:4200")
+
     @RequestMapping(method = RequestMethod.GET, value = "/sharesOwned")
     public String getMySharesName() throws JSONException {
         JSONObject outputJsonObj = new JSONObject();
         outputJsonObj.put("output", sharesService.getMySharesName().toString());
         return outputJsonObj.toString();
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/marketMovers")
+    public String getMarketMovers() throws JSONException, IOException, InterruptedException {
+        return sharesService.getMarketMovers();
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/marketSummary")
+    public String getMarketSummary() throws JSONException, IOException, InterruptedException {
+        return sharesService.getMarketSummary();
     }
 }
