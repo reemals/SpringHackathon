@@ -1,5 +1,6 @@
 package com.citi.training.SampleSpringBoot.service;
 import com.citi.training.SampleSpringBoot.entities.Shares;
+import org.json.JSONException;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -16,6 +17,6 @@ public interface SharesService {
     Double getTotalProfit(int id) throws IOException;
     Double getBookValue(int id) throws IOException;
     Double getTotalShares(String symbol);
-    String getCurrentStockInfor(String symbol) throws IOException;
+    String getCurrentStockInfor(String symbol) throws IOException, JSONException;
     ArrayList<String> getMySharesName();
 }

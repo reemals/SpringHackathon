@@ -55,13 +55,13 @@ class SampleSpringBootApplicationTests {
 
 	}
 
-	@Test
-	public void canGetStockInfo() throws IOException {
-
-		String stockInfo = sc.getCurrentStockInfor("TSLA");
-		assertTrue(stockInfo != null);
-
-	}
+//	@Test
+//	public void canGetStockInfo() throws IOException {
+//
+//		String stockInfo = sc.getCurrentStockInfor("TSLA");
+//		assertTrue(stockInfo != null);
+//
+//	}
 
 	@Test
 	public void canAddStock() throws IOException {

@@ -1,6 +1,8 @@
 package com.citi.training.SampleSpringBoot.service;
 import com.citi.training.SampleSpringBoot.entities.Shares;
 import com.citi.training.SampleSpringBoot.repo.SharesRepository;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import yahoofinance.Stock;
@@ -113,7 +115,7 @@ public class SharesServiceImpl implements SharesService {
     }
 
     @Override
-    public String getCurrentStockInfor(String symbol) throws IOException {
+    public String getCurrentStockInfor(String symbol) throws IOException, JSONException {
         Stock stock = YahooFinance.get(symbol);
 
         BigDecimal price = stock.getQuote().getPrice();
@@ -122,7 +124,12 @@ public class SharesServiceImpl implements SharesService {
         BigDecimal dividend = stock.getDividend().getAnnualYieldPercent();
 
        // stock.print();
-
-        return "Current Market Information for " + stock.getName() +" Price: " + price + ", Change: " + change + ", Peg: " + peg + ", Dividend: " + dividend ;
+        JSONObject outputJsonObj = new JSONObject();
+        outputJsonObj.put("name", stock.getName());
+        outputJsonObj.put("price", price);
+        outputJsonObj.put("change", change);
+        outputJsonObj.put("peg", peg);
+        outputJsonObj.put("dividend", dividend);
+        return outputJsonObj.toString();
     }
 }
