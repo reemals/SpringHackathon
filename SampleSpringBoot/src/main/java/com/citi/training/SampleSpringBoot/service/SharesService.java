@@ -22,5 +22,6 @@ public interface SharesService {
     String getMarketGainers() throws IOException, InterruptedException, JSONException;
     String getMarketLosers() throws IOException, InterruptedException, JSONException;
     String getMarketSummary() throws IOException, InterruptedException, JSONException;
-
+    String getMySharesPrices() throws IOException, JSONException;
+    String getMySharesChange() throws IOException, JSONException;
 }

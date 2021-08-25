@@ -98,4 +98,14 @@ public class SharesController {
     public String getMarketSummary() throws JSONException, IOException, InterruptedException {
         return sharesService.getMarketSummary();
     }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/sharesOwnedPrices")
+    public String getMySharesPrices() throws JSONException, IOException, InterruptedException {
+        return sharesService.getMySharesPrices();
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/sharesOwnedChange")
+    public String getMySharesChange() throws JSONException, IOException, InterruptedException {
+        return sharesService.getMySharesChange();
+    }
 }
