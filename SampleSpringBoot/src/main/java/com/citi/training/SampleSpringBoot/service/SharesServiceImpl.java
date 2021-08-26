@@ -117,9 +117,12 @@ public class SharesServiceImpl implements SharesService {
     @Override
     public String getMySharesQuantity() throws JSONException {
         ArrayList<String> shares = getMySharesName();
-        JSONObject outputJsonObj = new JSONObject();
+        JSONArray outputJsonObj = new JSONArray();
         for(int i = 0 ; i < shares.size(); i++){
-           outputJsonObj.put(shares.get(i), getTotalShares(shares.get(i)));
+            JSONObject obj = new JSONObject();
+            obj.put("symbol", shares.get(i));
+            obj.put("quantity", getTotalShares(shares.get(i)));
+            outputJsonObj.put(i,obj);
         }
         return outputJsonObj.toString();
     }
