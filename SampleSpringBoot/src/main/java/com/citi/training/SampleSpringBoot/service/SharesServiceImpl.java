@@ -89,12 +89,16 @@ public class SharesServiceImpl implements SharesService {
 
     @Override
     public String getMySharesChange() throws IOException, JSONException {
-        List<String> shares = getMySharesName();
-        JSONObject outputJsonObj = new JSONObject();
+        ArrayList<String> shares = getMySharesName();
+        JSONArray outputJsonObj = new JSONArray();
         for(int i =0; i < shares.size(); i++){
+
             Stock stock1 = YahooFinance.get(shares.get(i));
             BigDecimal price = stock1.getQuote().getChangeInPercent();
-            outputJsonObj.put( shares.get(i), price);
+            JSONObject obj = new JSONObject();
+            obj.put("symbol", shares.get(i));
+            obj.put("change", price);
+            outputJsonObj.put(i,obj);
         }
         return outputJsonObj.toString();
     }
