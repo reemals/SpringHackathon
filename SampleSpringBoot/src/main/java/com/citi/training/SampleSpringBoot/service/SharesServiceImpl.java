@@ -114,6 +114,15 @@ public class SharesServiceImpl implements SharesService {
         Double total = ( stock.getQuote().getPrice().doubleValue()- shares.get(0).getTransaction_price() ) * shares.get(0).getVolume();
         return total;
     }
+    @Override
+    public String getMySharesQuantity() throws JSONException {
+        ArrayList<String> shares = getMySharesName();
+        JSONObject outputJsonObj = new JSONObject();
+        for(int i = 0 ; i < shares.size(); i++){
+           outputJsonObj.put(shares.get(i), getTotalShares(shares.get(i)));
+        }
+        return outputJsonObj.toString();
+    }
 
     @Override
     public Double getTotalNetWorth() throws IOException {

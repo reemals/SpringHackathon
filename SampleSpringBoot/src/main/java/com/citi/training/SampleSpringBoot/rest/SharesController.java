@@ -108,4 +108,9 @@ public class SharesController {
     public String getMySharesChange() throws JSONException, IOException, InterruptedException {
         return sharesService.getMySharesChange();
     }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/sharesOwnedQuantity")
+    public String getMySharesQuantity() throws JSONException, IOException, InterruptedException {
+        return sharesService.getMySharesQuantity();
+    }
 }
