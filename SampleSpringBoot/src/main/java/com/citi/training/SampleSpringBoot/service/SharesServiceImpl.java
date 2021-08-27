@@ -165,7 +165,7 @@ public class SharesServiceImpl implements SharesService {
     @Override
     public String getMarketGainers() throws IOException, InterruptedException, JSONException {
         String output ="";
-        URL url = new URL("https://financialmodelingprep.com/api/v3/stock/gainers?apikey=d9b53b70b77c85604f56ebd6be5d7909");
+        URL url = new URL("https://financialmodelingprep.com/api/v3/gainers?apikey=86dad9842cab4979c71205a706f7979d");
 
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"))) {
             for (String line; (line = reader.readLine()) != null;) {
@@ -178,7 +178,7 @@ public class SharesServiceImpl implements SharesService {
     @Override
     public String getMarketLosers() throws IOException, InterruptedException, JSONException {
         String output ="";
-        URL url = new URL("https://financialmodelingprep.com/api/v3/stock/losers?apikey=d9b53b70b77c85604f56ebd6be5d7909");
+        URL url = new URL("https://financialmodelingprep.com/api/v3/losers?apikey=86dad9842cab4979c71205a706f7979d");
 
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"))) {
             for (String line; (line = reader.readLine()) != null;) {
